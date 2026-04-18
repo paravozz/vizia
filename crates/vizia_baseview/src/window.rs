@@ -230,6 +230,10 @@ impl WindowHandler for ViziaWindow {
 
         if captured { EventStatus::Captured } else { EventStatus::Ignored }
     }
+
+    fn has_text_focus(&mut self, _window: &mut Window<'_>) -> bool {
+        self.application.focused_element() == Some("textbox")
+    }
 }
 
 pub struct WindowView {}
