@@ -603,6 +603,17 @@ impl Context {
         );
     }
 
+    /// Returns the element name (e.g. `"textbox"`) of the currently focused
+    /// view, or `None` if the focused entity has no view or the view doesn't
+    /// declare an element name.
+    ///
+    /// Mirrors [`BackendContext::focused_element`] for use from contexts
+    /// (such as the `on_idle` application callback) that receive a
+    /// `&mut Context` directly.
+    pub fn focused_element(&self) -> Option<&'static str> {
+        self.views.get(&self.focused).and_then(|view| view.element())
+    }
+
     /// Sets the global default font for the application.
     pub fn set_default_font(&mut self, names: &[&str]) {
         self.style.default_font = names
